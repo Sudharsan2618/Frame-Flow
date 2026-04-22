@@ -1247,6 +1247,8 @@ export default function CoursePlayer() {
       </header>
 
       {/* Certificate Banner — shown when course is 100% complete */}
+      {/* Congratulations banner text disabled - keeping certificate button only */}
+      {/*
       {progressPercent >= 100 && (
         <div className="flex flex-wrap items-center gap-2 border-b border-amber-200 bg-gradient-to-r from-amber-50 via-amber-50/80 to-yellow-50 dark:from-amber-950/30 dark:via-amber-900/20 dark:to-yellow-950/20 px-3 py-2 shrink-0 z-10 sm:flex-nowrap sm:gap-3 sm:px-6 sm:py-3">
           <Award className="h-5 w-5 text-amber-600 shrink-0" />
@@ -1254,12 +1256,17 @@ export default function CoursePlayer() {
             <p className="text-sm font-semibold text-foreground">Congratulations! You completed this course!</p>
             <p className="text-xs text-muted-foreground">Claim your certificate of completion.</p>
           </div>
+      */}
+      {/* Certificate button - disabled */}
+      {/*
+      {progressPercent >= 100 && enrollment && (
+        <div className="flex items-center justify-end gap-2 border-b border-amber-200 bg-gradient-to-r from-amber-50 via-amber-50/80 to-yellow-50 dark:from-amber-950/30 dark:via-amber-900/20 dark:to-yellow-950/20 px-3 py-2 shrink-0 z-10 sm:px-6 sm:py-3">
           {enrollment?.certificate_issued ? (
             <Button size="sm" variant="outline" className="shrink-0 gap-1.5 border-amber-300 hover:bg-amber-100" onClick={() => window.open(getCertificateViewUrl(enrollment.enrollment_id), '_blank')}>
               <Award className="h-3.5 w-3.5 text-amber-600" />
               View Certificate
             </Button>
-          ) : enrollment ? (
+          ) : (
             <Button size="sm" className="shrink-0 gap-1.5 bg-amber-600 hover:bg-amber-700" disabled={certLoading} onClick={async () => {
               setCertLoading(true)
               try {
@@ -1272,11 +1279,10 @@ export default function CoursePlayer() {
               {certLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Award className="h-3.5 w-3.5" />}
               {certLoading ? "Issuing..." : "Get Certificate"}
             </Button>
-          ) : (
-            <Loader2 className="h-4 w-4 animate-spin text-amber-600 shrink-0" />
           )}
         </div>
       )}
+      */}
 
       {/* Main content - Immersive Layout */}
       <div className="flex flex-1 overflow-hidden relative">
