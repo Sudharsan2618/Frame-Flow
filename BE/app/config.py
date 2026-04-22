@@ -39,25 +39,25 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
 
     # ── PostgreSQL ──
-    POSTGRES_HOST: str = os.getenv("POSTGRES_HOST")
-    POSTGRES_PORT: int = os.getenv("POSTGRES_PORT")
-    POSTGRES_USER: str = os.getenv("POSTGRES_USER")
-    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
-    POSTGRES_DB: str = os.getenv("POSTGRES_DB")
+    POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "")
+    POSTGRES_PORT: int = int(os.getenv("POSTGRES_PORT", "5432"))
+    POSTGRES_USER: str = os.getenv("POSTGRES_USER", "")
+    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "")
+    POSTGRES_DB: str = os.getenv("POSTGRES_DB", "")
 
     # ── GCP Cloud Storage ──
-    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME")
-    GCS_PROJECT_ID: str = os.getenv("GCS_PROJECT_ID")
+    GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "")
+    GCS_PROJECT_ID: str = os.getenv("GCS_PROJECT_ID", "")
     GOOGLE_APPLICATION_CREDENTIALS: Optional[str] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
     COURSE_ASSET_PREFIX: str = os.getenv("COURSE_ASSET_PREFIX", "courses")
     # ── MongoDB (Learning Analytics & xAPI) ──
-    MONGODB_URL: str = os.getenv("MONGODB_URL")
-    MONGODB_DB: str = os.getenv("MONGODB_DB")
+    MONGODB_URL: str = os.getenv("MONGODB_URL", "")
+    MONGODB_DB: str = os.getenv("MONGODB_DB", "")
 
     # ── Frontend (CORS) ──
-    FRONTEND_URL: str = os.getenv("FRONTEND_URL")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "")
 
     # ── Razorpay (Payment Gateway) ──
     RAZORPAY_KEY_ID: str = os.getenv("RAZORPAY_KEY_ID", "")
