@@ -19,38 +19,50 @@ async def lifespan(app: FastAPI):
     """Application startup/shutdown lifecycle."""
     import os
     import asyncio
+    import sys
+    
+    print("[STARTUP] Beginning lifespan initialization...", flush=True)
     port = os.getenv("PORT", "8080")
-    print(f"[START] {settings.APP_NAME} API starting...")
-    print(f"[INFO]  Listening on port: {port}")
-    print(f"[DOCS]  http://localhost:{port}/docs")
+    print(f"[STARTUP] PORT environment variable: {port}", flush=True)
+    print(f"[START] {settings.APP_NAME} API starting...", flush=True)
+    print(f"[INFO]  Listening on port: {port}", flush=True)
+    print(f"[DOCS]  http://localhost:{port}/docs", flush=True)
 
     # MongoDB connect + indexes - run in background to not block startup
     async def init_db():
         try:
+            print("[STARTUP] Starting MongoDB connection...", flush=True)
             await connect_mongodb()
+            print("[STARTUP] MongoDB connected, ensuring indexes...", flush=True)
             await ensure_indexes()
+            print("[STARTUP] Database initialization complete", flush=True)
         except Exception as e:
-            print(f"[ERROR] Database startup failed: {e}")
-            print("        App will continue to start but DB features may fail.")
+            print(f"[ERROR] Database startup failed: {e}", flush=True)
+            print("        App will continue to start but DB features may fail.", flush=True)
 
     # Start DB initialization in background
+    print("[STARTUP] Starting DB initialization in background...", flush=True)
     db_task = asyncio.create_task(init_db())
 
+    print("[STARTUP] Server ready to accept connections", flush=True)
     yield
 
     # Shutdown
+    print("[SHUTDOWN] Beginning shutdown...", flush=True)
     try:
         # Cancel DB task if still running
         if not db_task.done():
+            print("[SHUTDOWN] Canceling pending DB task...", flush=True)
             db_task.cancel()
             try:
                 await db_task
             except asyncio.CancelledError:
                 pass
+        print("[SHUTDOWN] Closing MongoDB connection...", flush=True)
         await close_mongodb()
     except Exception as e:
-        print(f"[ERROR] Database shutdown error: {e}")
-    print(f"[STOP]  {settings.APP_NAME} API shutting down...")
+        print(f"[ERROR] Database shutdown error: {e}", flush=True)
+    print(f"[STOP]  {settings.APP_NAME} API shutting down...", flush=True)
 
 
 app = FastAPI(
