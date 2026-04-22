@@ -38,7 +38,8 @@ export default function CompanyRegisterPage() {
     const result = await registerCompany({ email, password, company_name: companyName })
 
     if (result.success) {
-      router.push("/company/onboarding")
+      // Onboarding disabled - redirect directly to dashboard
+      router.push("/company")
     } else {
       setError(result.error || "Registration failed")
     }

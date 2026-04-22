@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Building2, ArrowRight, ArrowLeft, Loader2, Info, Phone, Link2, CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -110,6 +110,11 @@ export default function CompanyOnboardingPage() {
   function handleSkip() {
     handleSubmit()
   }
+
+  // Onboarding disabled - auto-redirect to dashboard on mount
+  useEffect(() => {
+    router.push("/company")
+  }, [router])
 
   return (
     <div className="min-h-screen bg-background">

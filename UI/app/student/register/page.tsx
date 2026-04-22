@@ -40,7 +40,8 @@ export default function StudentRegisterPage() {
     const result = await registerStudent({ email, password, first_name: firstName, last_name: lastName })
 
     if (result.success) {
-      router.push("/student/onboarding")
+      // Onboarding disabled - redirect directly to dashboard
+      router.push("/student")
     } else {
       setError(result.error || "Registration failed")
     }

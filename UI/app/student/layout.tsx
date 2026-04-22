@@ -44,16 +44,19 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
     if (loading || UNGUARDED_PATHS.includes(pathname)) return
     if (!isAuthenticated) {
       router.push("/student/login")
-    } else if (user && !user.onboarding_completed) {
-      router.push("/student/onboarding")
     }
+    // Onboarding disabled - skip onboarding check
+    // else if (user && !user.onboarding_completed) {
+    //   router.push("/student/onboarding")
+    // }
   }, [loading, isAuthenticated, user, pathname, router])
 
   // Don't guard login, register, or onboarding pages
   if (UNGUARDED_PATHS.includes(pathname)) return <>{children}</>
 
   // Show loading while restoring session, or while redirecting
-  if (loading || !isAuthenticated || (user && !user.onboarding_completed)) {
+  // Onboarding disabled - removed onboarding check
+  if (loading || !isAuthenticated) {
     return (
       <PortalShell portalName="Student Portal" navItems={studentNav} portalColor="bg-primary">
         <DashboardSkeleton />

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowRight, ArrowLeft, Loader2, User, Briefcase, Link2, CheckCircle2 } from "lucide-react"
 import { Logo } from "@/components/logo"
@@ -133,6 +133,11 @@ export default function StudentOnboardingPage() {
   function handleSkip() {
     handleSubmit()
   }
+
+  // Onboarding disabled - auto-redirect to dashboard on mount
+  useEffect(() => {
+    router.push("/student")
+  }, [router])
 
   return (
     <div className="min-h-screen bg-background">
