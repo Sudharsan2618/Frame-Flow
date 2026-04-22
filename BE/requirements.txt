@@ -1,0 +1,54 @@
+# Core
+fastapi==0.115.0
+uvicorn[standard]==0.34.0
+pydantic==2.10.0
+pydantic-settings==2.7.0
+
+# Database
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+greenlet==3.1.1
+motor==3.6.0
+dnspython==2.7.0
+
+# GCP Cloud Storage (instead of S3)
+google-cloud-storage==2.19.0
+
+# Auth (for later phases)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.18
+
+# Utilities
+httpx==0.28.0
+email-validator==2.2.0
+python-dotenv==1.0.1
+
+# CORS
+starlette
+
+# AI & LLM
+google-generativeai==0.8.3
+langchain-google-genai==2.0.8
+langchain==0.3.17
+
+# PDF Processing
+PyPDF2==3.0.1
+
+# Vector DB Support
+pgvector==0.3.6
+
+# Payment Gateway
+razorpay==1.4.2
+
+# Notifications
+novu==1.14.0
+slowapi==0.1.9
+
+# Performance
+cachetools>=5.3.0
+
+# Email
+aiosmtplib>=3.0.0

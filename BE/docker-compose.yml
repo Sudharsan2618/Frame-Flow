@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+    # Optional: mount app directory for hot-reloading during local docker tests
+    # volumes:
+    #   - ./app:/app/app

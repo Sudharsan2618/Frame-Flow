@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+venv/
+ENV/
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+docker-compose.yml
+Dockerfile
+# Ignore secrets - they should be provided via environment variables in Cloud Run
+*.json
+# If you explicitly need a service account key for local testing, 
+# uncomment the next line, but it is NOT recommended for production
+# !gcp-service-account.json

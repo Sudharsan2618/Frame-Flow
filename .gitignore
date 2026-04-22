@@ -1,0 +1,39 @@
+# Dependencies
+**/node_modules/
+jspm_packages/
+.npm/
+
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+BE/.env
+UI/.env
+
+
+
+# Sensitive files
+*-service-account.json
+gen-lang-client-*.json
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.vercel/
