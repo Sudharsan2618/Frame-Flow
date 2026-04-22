@@ -18,23 +18,35 @@ from app.utils.limiter import limiter
 async def lifespan(app: FastAPI):
     """Application startup/shutdown lifecycle."""
     import os
+    import asyncio
     port = os.getenv("PORT", "8080")
     print(f"[START] {settings.APP_NAME} API starting...")
     print(f"[INFO]  Listening on port: {port}")
     print(f"[DOCS]  http://localhost:{port}/docs")
 
-    # MongoDB connect + indexes
-    try:
-        await connect_mongodb()
-        await ensure_indexes()
-    except Exception as e:
-        print(f"[ERROR] Database startup failed: {e}")
-        print("        App will continue to start but DB features may fail.")
+    # MongoDB connect + indexes - run in background to not block startup
+    async def init_db():
+        try:
+            await connect_mongodb()
+            await ensure_indexes()
+        except Exception as e:
+            print(f"[ERROR] Database startup failed: {e}")
+            print("        App will continue to start but DB features may fail.")
+
+    # Start DB initialization in background
+    db_task = asyncio.create_task(init_db())
 
     yield
 
     # Shutdown
     try:
+        # Cancel DB task if still running
+        if not db_task.done():
+            db_task.cancel()
+            try:
+                await db_task
+            except asyncio.CancelledError:
+                pass
         await close_mongodb()
     except Exception as e:
         print(f"[ERROR] Database shutdown error: {e}")

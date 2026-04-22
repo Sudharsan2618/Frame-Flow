@@ -82,6 +82,18 @@ export default function CourseCatalog() {
     if (priceFilter === "Free" && !c.isFree) return false
     if (priceFilter === "Paid" && c.isFree) return false
     return true
+  }).sort((a, b) => {
+    // Sort by Volume number if present in title
+    const volumeMatchA = a.title.match(/Volume\s*(\d+)/i)
+    const volumeMatchB = b.title.match(/Volume\s*(\d+)/i)
+    
+    if (volumeMatchA && volumeMatchB) {
+      return parseInt(volumeMatchA[1]) - parseInt(volumeMatchB[1])
+    }
+    if (volumeMatchA) return -1
+    if (volumeMatchB) return 1
+    
+    return 0
   })
 
   const categoryOptions = ["All", ...categories.map((c) => c.name)]
@@ -143,9 +155,9 @@ export default function CourseCatalog() {
 
             return (
               <Card key={course.id} className="group overflow-hidden transition-shadow hover:shadow-md">
-                <div className="relative h-80 bg-muted">
+                <div className="relative bg-muted">
                   {course.image ? (
-                    <img src={course.image} alt={course.title} className="h-full w-full object-cover" />
+                    <img src={course.image} alt={course.title} className="w-full object-contain" />
                   ) : (
                     <div className="flex h-full items-center justify-center">
                       <span className="text-3xl font-bold text-muted-foreground/30">{course.category}</span>
